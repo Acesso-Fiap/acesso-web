@@ -24,7 +24,7 @@ export function useReports() {
     }
   }
   useEffect(() => {
-    refresh();
+    queueMicrotask(refresh);
   }, []);
   async function save(data, id) {
     if (

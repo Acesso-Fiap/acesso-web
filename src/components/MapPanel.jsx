@@ -22,7 +22,9 @@ export default function MapPanel({
     layer = useRef(null),
     route = useRef(null),
     callback = useRef(onSelect);
-  callback.current = onSelect;
+  useEffect(() => {
+    callback.current = onSelect;
+  }, [onSelect]);
   useEffect(() => {
     const instance = L.map(container.current, {
       scrollWheelZoom: false,
@@ -107,13 +109,17 @@ export default function MapPanel({
       route.current = null;
     }
     if (!routePlace) {
-      setRouteStatus({ loading: false, error: "", distance: null });
+      queueMicrotask(() =>
+        setRouteStatus({ loading: false, error: "", distance: null }),
+      );
       return;
     }
     const controller = new AbortController();
     let active = true;
     const timeout = setTimeout(() => controller.abort(), 15000);
-    setRouteStatus({ loading: true, error: "", distance: null });
+    queueMicrotask(() =>
+      setRouteStatus({ loading: true, error: "", distance: null }),
+    );
     getWalkingRoute(
       station.coordinates,
       routePlace.coordinates,

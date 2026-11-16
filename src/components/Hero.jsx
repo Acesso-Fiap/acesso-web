@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUpRight, MapPin, Sparkles, Route } from "lucide-react";
+import { ArrowDown, ArrowUpRight, MapPin, Sparkles } from "lucide-react";
 export default function Hero() {
   return (
     <section
